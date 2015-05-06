@@ -12,4 +12,21 @@ suites:
   - name: default
     run_list:
       - recipe[rundeck::default]
+  - name: ldap
+    run_list:
+      - recipe[rundeck::default]
     attributes:
+      rundeck:
+        authentication:
+          name: RDldaplogin
+          ldap:
+            provider_url: "ldap://ldap.example.org"
+            bind_dn: "CN=foo,DC=example,DC=org"
+            bind_password: "somepass"
+            authentication_method: "simple"
+            user_base_dn: "OU=Users,DC=example,DC=org"
+            user_rdn_attribute: "sAMAccountName"
+            user_id_attribute: "sAMAccountName"
+            user_password_attribute: "unicodePwd"
+            role_base_dn: "OU=Awesome Users,DC=example,DC=org"
+            supplemental_roles: "admin,user"

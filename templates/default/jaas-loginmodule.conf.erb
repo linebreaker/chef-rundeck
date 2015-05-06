@@ -1,0 +1,32 @@
+RDpropertyfilelogin {
+org.eclipse.jetty.plus.jaas.spi.PropertyFileLoginModule required
+debug="true"
+file="/etc/rundeck/realm.properties";
+};
+
+<% if @ldap %>
+RDldaplogin {
+    com.dtolabs.rundeck.jetty.jaas.JettyCachingLdapLoginModule required
+    debug="true"
+    contextFactory="com.sun.jndi.ldap.LdapCtxFactory"
+    providerUrl="<%= @ldap['provider_url'] %>"
+    bindDn="<%= @ldap['bind_dn'] %>"
+    bindPassword="<%= @ldap['bind_password'] %>"
+    authenticationMethod="<%= @ldap['authentication_method'] %>"
+    forceBindingLogin="true"
+    userBaseDn="<%= @ldap['user_base_dn'] %>"
+    userRdnAttribute="<%= @ldap['user_rdn_attribute'] %>"
+    userIdAttribute="<%= @ldap['user_id_attribute'] %>"
+    userPasswordAttribute="<%= @ldap['user_password_attribute'] %>"
+    userObjectClass="user"
+    forceBindingLoginUseRootContextForRoles="true"
+    roleBaseDn="<%= @ldap['role_base_dn'] %>"
+    roleNameAttribute="cn"
+    roleMemberAttribute="member"
+    roleObjectClass="group"
+    cacheDurationMillis="300000"
+    reportStatistics="true"
+    supplementalRoles="<%= @ldap['supplemental_roles'] %>";
+};
+<% end %>
+

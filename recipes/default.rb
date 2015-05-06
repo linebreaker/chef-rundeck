@@ -155,6 +155,18 @@ template '/etc/rundeck/profile' do
 	notifies :restart, 'service[rundeckd]'
 end
 
+template '/etc/rundeck/jaas-loginmodule.conf' do
+	source 'jaas-loginmodule.conf.erb'
+	owner 'rundeck'
+	group 'rundeck'
+	mode 00644
+	variables({
+		:ldap => node['rundeck']['authentication']['ldap']
+	})
+	action :create
+	notifies :restart, 'service[rundeckd]'
+end
+
 # Stub files from the cookbook, override with chef-rewind
 node['rundeck']['stub_config_files'].each do |cf|
 	cookbook_file "/etc/rundeck/#{cf}" do

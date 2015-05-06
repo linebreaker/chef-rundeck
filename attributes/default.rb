@@ -44,8 +44,27 @@ default['rundeck']['partial_search']    = true
 default['rundeck']['authentication']['file']  = 'jaas-loginmodule.conf'
 default['rundeck']['authentication']['name']  = 'RDpropertyfilelogin'
 
+default['rundeck']['authentication']['ldap'] = {}
+
+## To use LDAP, copy this block to your environment or wrapper, uncomment it, and fill in the
+## appropriate values. All of the below attributes are required.
+##
+# default['rundeck']['authentication']['name']  = 'RDldaplogin'
+# default['rundeck']['authentication']['ldap'] = {
+#   'provider_url' => 'ldap://ldap.example.org',
+#   'bind_dn' => 'CN=rundeckbind,OU=Service Accounts,DC=example,DC=org',
+#   'bind_password' => 'mypass',
+#   'authentication_method' => 'simple',
+#   'user_base_dn' => 'OU=Users,DC=example,DC=org',
+#   'user_rdn_attribute' => 'sAMAccountName',
+#   'user_id_attribute' => 'sAMAccountName',
+#   'user_password_attribute' => 'unicodePwd',
+#   'role_base_dn' => 'OU=Users,DC=example,DC=org',
+#   'supplemental_roles' => 'admin,user'
+# }
+
 # Stub config files
-default['rundeck']['stub_config_files'] = %w{ log4j.properties jaas-loginmodule.conf apitoken.aclpolicy admin.aclpolicy }
+default['rundeck']['stub_config_files'] = %w{ log4j.properties apitoken.aclpolicy admin.aclpolicy }
 
 # Administrator data bag
 default['rundeck']['admin']['encrypted_data_bag'] = true
